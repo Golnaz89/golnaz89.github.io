@@ -18,6 +18,7 @@ This folder contains draft blog posts that are NOT yet published.
 | content-or-platform-first.html | Content vs platform, Channel 9 days | Feb 9, 2026 |
 | capture-your-events.html | Why you should record event sessions | Feb 16, 2026 |
 | the-art-of-the-oner.html | The craft of the single-shot, philosophy of raw storytelling | Feb 23, 2026 |
+| creative-team-azure-devops.html | Our process, Azure DevOps, Power Automate, GPT-5 workflows | Mar 2, 2026 |
 
 ## Publishing Checklist
 
