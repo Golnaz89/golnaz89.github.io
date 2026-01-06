@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golnaz.RoughCut</title>
+    <description>Golnaz Alibeigi's blog on video production, developer media, and storytelling. Head of DevRel Studios at Microsoft.</description>
+    <link>https://golnazroughcut.com</link>
+    <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Jan 2026 00:00:00 GMT</lastBuildDate>
+    
+    <item>
+      <title>Year 15: Why I'm Finally Hitting Publish</title>
+      <link>https://golnazroughcut.com/posts/welcome-to-my-blog.html</link>
+      <guid>https://golnazroughcut.com/posts/welcome-to-my-blog.html</guid>
+      <pubDate>Sun, 05 Jan 2026 00:00:00 GMT</pubDate>
+      <description>After 15 years at Microsoft producing thousands of developer videos, I'm finally writing it down. Why I started this blog, what RoughCut means, and what's coming next.</description>
+    </item>
+    
+  </channel>
+</rss>

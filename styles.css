@@ -96,6 +96,13 @@ header h1 a:hover {
     text-decoration: underline;
 }
 
+.disclaimer {
+    font-size: 0.75em;
+    color: #999;
+    font-style: italic;
+    margin-top: 20px;
+}
+
 /* Post List Styles */
 .posts {
     margin-bottom: 50px;
