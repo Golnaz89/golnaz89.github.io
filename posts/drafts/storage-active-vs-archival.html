@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active vs Archival Storage: How We Store Petabytes on Pennies - Golnaz.RoughCut</title>
+    <link rel="stylesheet" href="../../styles.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-39E8YJ71FR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-39E8YJ71FR');
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <a href="../../index.html" class="back-link">Back to all posts</a>
+
+        <article class="post">
+            <header class="post-header">
+                <time datetime="2026-01-26">26 January 2026</time>
+                <h1>Active vs Archival Storage: How We Store Petabytes on Pennies</h1>
+            </header>
+
+            <div class="post-content">
+                <p>Video files are big. Raw footage is bigger. And when you've been producing content for 15 years, storage becomes an existential problem. Here's how we solved it.</p>
+
+                <h2>The Two Storage Problem</h2>
+
+                <p>In video production, you have two very different storage needs:</p>
+
+                <ol>
+                    <li><strong>Active storage:</strong> The stuff you're working on right now. Needs to be fast, accessible, and collaborative.</li>
+                    <li><strong>Archival storage:</strong> Everything you've ever made that you might need again someday. Needs to be cheap and reliable.</li>
+                </ol>
+
+                <p>These are fundamentally different problems with fundamentally different solutions.</p>
+
+                <h2>Our Archival Journey</h2>
+
+                <h3>The Old Way: SNS EVO</h3>
+
+                <p>We used to run an SNS EVO server for our archive. It worked. It was reliable. It was also expensive. Really expensive. We're talking significant ongoing costs for hardware, maintenance, and the ever-present fear of drive failures.</p>
+
+                <p>I actually wrote about our setup on their platform: [LINK TO ORIGINAL BLOG]</p>
+
+                <h3>The New Way: Azure File Sync</h3>
+
+                <p>Now we run our own Windows Server that syncs to Azure Blob Storage. The game-changer? <strong>Azure File Sync.</strong></p>
+
+                <p>Here's the magic: files that haven't been accessed in a while get tiered to the cloud automatically. On our local server, they show up as placeholders. When someone needs an old file, it pulls down on demand. The stuff we use regularly stays local and fast.</p>
+
+                <p>The cost difference is absurd. We're talking pennies on the dollar compared to dedicated media storage solutions. For archival footage that might get accessed once a year? This makes so much sense.</p>
+
+                <h2>Active Storage: Frame.io</h2>
+
+                <p>For active projects—the stuff we're editing right now—we use Frame.io.</p>
+
+                <p>The Adobe and Azure partnership here has been huge. Cloud-native editing workflows, real-time collaboration, AI-powered features for searching and organizing footage. It's built for creative teams who need to move fast.</p>
+
+                <h3>Why This Works for Us</h3>
+
+                <ul>
+                    <li><strong>UI that creatives can use.</strong> Drop-down menus. Visual interfaces. Drag and drop. My team are video producers, not sysadmins.</li>
+                    <li><strong>Built for collaboration.</strong> Comments on frames, version tracking, approval workflows.</li>
+                    <li><strong>AI organization.</strong> Auto-transcription, searchable footage, smart tagging.</li>
+                </ul>
+
+                <h2>The CLI Problem</h2>
+
+                <p>Here's a rant: so many powerful tools require command-line interfaces. And look, I get it. CLIs are powerful, flexible, scriptable. Engineers love them.</p>
+
+                <p>But creative teams? We're visual people working on visual problems. We need to see our footage, scrub through timelines, drag things around. Asking an editor to run terminal commands to access their files is a non-starter.</p>
+
+                <p>Maybe one day there will be a bridge—powerful cloud tools with interfaces that creative people can actually use without calling IT. We're getting closer. But we're not there yet.</p>
+
+                <h2>The Bottom Line</h2>
+
+                <table>
+                    <tr>
+                        <th>Storage Type</th>
+                        <th>Our Solution</th>
+                        <th>Why</th>
+                    </tr>
+                    <tr>
+                        <td>Archival</td>
+                        <td>Windows Server + Azure Blob (File Sync)</td>
+                        <td>Cheap, reliable, tiered</td>
+                    </tr>
+                    <tr>
+                        <td>Active</td>
+                        <td>Frame.io</td>
+                        <td>Fast, collaborative, creative-friendly</td>
+                    </tr>
+                </table>
+
+                <p>If you're drowning in storage costs, seriously look at cloud tiering. The math works out. And your future self will thank you when you can actually find that footage from 2019.</p>
+
+            </div>
+        </article>
+    </div>
+</body>
+</html>
