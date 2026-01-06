@@ -323,3 +323,29 @@ footer p {
         font-size: 1.3em;
     }
 }
+
+/* 404 Error Page */
+.error-page {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.error-page h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.error-page p {
+    font-size: 1.1em;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.error-page a {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.error-page a:hover {
+    text-decoration: underline;
+}
