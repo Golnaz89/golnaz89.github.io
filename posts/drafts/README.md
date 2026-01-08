@@ -22,11 +22,42 @@ This folder contains draft blog posts that are NOT yet published.
 
 ## Publishing Checklist
 
+### Before Publishing
 - [ ] Proofread the post
-- [ ] **Copy images** - Copy any new images from `images/` on drafts to main branch
-- [ ] **Update image paths** - Change `../../images/` to `../images/` in the HTML (post moves up one folder)
-- [ ] **Update OG image URL** - Ensure `og:image` points to `https://golnazroughcut.com/images/your-image.png`
-- [ ] Add post preview to `index.html` on main
-- [ ] Move HTML file from `drafts/` to `posts/` on main
+- [ ] Check all links work
+- [ ] Verify date is correct in `<time datetime="">`
+
+### Create OG Image (1200x630)
+- [ ] Create social share image using `production.png` or relevant visual
+- [ ] Save as `images/[post-name]-og.png`
+- [ ] Update `<meta property="og:image">` in the post HTML
+
+### Move to Main Branch
+- [ ] Switch to `main` branch
+- [ ] Copy new images from `images/` on drafts to `images/` on main
+- [ ] Copy HTML file from `drafts/` to `posts/`
+- [ ] Update image paths: `../../images/` → `../images/`
+- [ ] Update canonical URL: remove `/drafts` from path
+- [ ] Add post preview to `index.html` (copy format from existing post)
 - [ ] Commit and push to `main`
-- [ ] Verify live site at golnazroughcut.com
+
+### Verify Live Site
+- [ ] Check post at `golnazroughcut.com/posts/[post-name].html`
+- [ ] Test OG image at https://opengraph.xyz
+
+### Promote on Social
+- [ ] **LinkedIn post**
+  - Hook: Why this matters to your audience
+  - Key insight from the post
+  - Link to post
+  - Relevant hashtags (#VideoProduction #DevRel etc.)
+  
+- [ ] **X/Twitter post**
+  - Shorter hook (under 280 chars with link)
+  - Link to post
+  - Tag relevant accounts if applicable
+
+### Optional
+- [ ] Cross-post to dev.to or Medium
+- [ ] Share in relevant Slack/Discord communities
+- [ ] Update RSS feed if needed
