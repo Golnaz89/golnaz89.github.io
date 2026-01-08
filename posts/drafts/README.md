@@ -9,16 +9,18 @@ This folder contains draft blog posts that are NOT yet published.
 
 ## Draft Posts (Scheduled)
 
-| File | Topic | Target Publish Date |
-|------|-------|---------------------|
-| ai-in-video-production.html | AI in video: what works, what doesn't, wishlist | Jan 12, 2026 |
-| women-in-video-production.html | Women in video production, representation | Jan 19, 2026 |
-| storage-active-vs-archival.html | Active vs archival storage, Azure File Sync | Jan 26, 2026 |
-| ai-video-generation-reality-check.html | Runway, Pika, AI video generation reality | Feb 2, 2026 |
-| content-or-platform-first.html | Content vs platform, Channel 9 days | Feb 9, 2026 |
-| capture-your-events.html | Why you should record event sessions | Feb 16, 2026 |
-| the-art-of-the-oner.html | The craft of the single-shot, philosophy of raw storytelling | Feb 23, 2026 |
-| creative-team-azure-devops.html | Our process, Azure DevOps, Power Automate, GPT-5 workflows | Mar 2, 2026 |
+| Date | Post | File |
+|------|------|------|
+| Jan 5 ✓ | Year 15: Why I'm Finally Hitting Publish | *published* |
+| Jan 12 | What AI Has (and Hasn't) Taken Over in Video Production | ai-in-video-production.html |
+| Jan 26 | The Art of the Oner | the-art-of-the-oner.html |
+| Feb 2 | What Came First: The Content or the Platform? | content-or-platform-first.html |
+| Feb 9 | How a Creative Team Learned to Love Azure DevOps | creative-team-azure-devops.html |
+| Feb 23 | Active vs Archival Storage | storage-active-vs-archival.html |
+| Mar 2 | I Spent $50 on AI Video Generation and Got Nothing Usable | ai-video-generation-reality-check.html |
+| Mar 9 | NDI Tools | *tbd* |
+| Mar 16 | If You Had an Event and Didn't Capture It, Did It Even Happen? | capture-your-events.html |
+| Mar 23 | Where Are the Women in Video Production? | women-in-video-production.html |
 
 ## Publishing Checklist
 
