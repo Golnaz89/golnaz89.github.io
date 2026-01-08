@@ -41,6 +41,8 @@ This folder contains draft blog posts that are NOT yet published.
 - [ ] Update image paths: `../../images/` → `../images/`
 - [ ] Update canonical URL: remove `/drafts` from path
 - [ ] Add post preview to `index.html` (copy format from existing post)
+- [ ] **Update `feed.xml`** - Add new `<item>` block with title, link, date, description
+- [ ] **Update `sitemap.xml`** - Add new URL entry
 - [ ] Commit and push to `main`
 
 ### Verify Live Site
