@@ -64,4 +64,3 @@ This folder contains draft blog posts that are NOT yet published.
 ### Optional
 - [ ] Cross-post to dev.to or Medium
 - [ ] Share in relevant Slack/Discord communities
-- [ ] Update RSS feed if needed
