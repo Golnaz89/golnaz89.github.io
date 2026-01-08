@@ -23,7 +23,10 @@ This folder contains draft blog posts that are NOT yet published.
 ## Publishing Checklist
 
 - [ ] Proofread the post
-- [ ] Add to blog index if needed
-- [ ] Move from `drafts/` to `posts/`
-- [ ] Commit and push to `drafts` branch
-- [ ] Cherry-pick or merge to `main`
+- [ ] **Copy images** - Copy any new images from `images/` on drafts to main branch
+- [ ] **Update image paths** - Change `../../images/` to `../images/` in the HTML (post moves up one folder)
+- [ ] **Update OG image URL** - Ensure `og:image` points to `https://golnazroughcut.com/images/your-image.png`
+- [ ] Add post preview to `index.html` on main
+- [ ] Move HTML file from `drafts/` to `posts/` on main
+- [ ] Commit and push to `main`
+- [ ] Verify live site at golnazroughcut.com
