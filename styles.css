@@ -71,6 +71,18 @@ header h1 a:hover {
     font-style: italic;
 }
 
+.bio {
+    color: var(--primary-color);
+    font-size: 0.95em;
+    margin: 1em 0 0 0;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+.bio strong {
+    font-weight: 600;
+}
+
 .social-links {
     margin: 0;
 }
