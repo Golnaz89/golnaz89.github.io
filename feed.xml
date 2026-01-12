@@ -6,8 +6,16 @@
     <link>https://golnazroughcut.com</link>
     <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Sun, 05 Jan 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 12 Jan 2026 00:00:00 GMT</lastBuildDate>
     
+    <item>
+      <title>What AI Has (and Hasn't) Taken Over in Video Production</title>
+      <link>https://golnazroughcut.com/posts/ai-in-video-production.html</link>
+      <guid>https://golnazroughcut.com/posts/ai-in-video-production.html</guid>
+      <pubDate>Mon, 12 Jan 2026 00:00:00 GMT</pubDate>
+      <description>A look at what AI has actually changed in video production—captions, voice, audio cleanup—and what's still waiting for someone to build.</description>
+    </item>
+
     <item>
       <title>Year 15: Why I'm Finally Hitting Publish</title>
       <link>https://golnazroughcut.com/posts/welcome-to-my-blog.html</link>
