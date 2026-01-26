@@ -75,21 +75,46 @@
 
                 <h3>The Old Way: SNS EVO</h3>
 
-                <p>We used to run an SNS EVO server for our archive. It worked. It was reliable. It was also expensive. Really expensive. We're talking significant ongoing costs for hardware, maintenance, and the ever-present fear of drive failures.</p>
+                <p>We used to run an SNS EVO server for our archive. It worked. It was reliable. It was also expensive. Really expensive. It was a Linux box that required paid support contracts, proprietary hardware, and constant hard drive purchases. Industry standard, sure, but industry standard also means industry pricing.</p>
 
                 <p>I actually wrote about our setup on their platform: <a href="https://www.studionetworksolutions.com/sns-evo-and-newtek-tricaster-at-microsoft-channel9-studio/">SNS EVO and NewTek TriCaster at Microsoft Channel 9 Studio</a></p>
 
                 <h3>The New Way: Azure File Sync</h3>
 
-                <p>Now we run our own Windows Server that syncs to Azure Blob Storage. The game-changer? <strong>Azure File Sync.</strong></p>
+                <p>Now we run a generic Windows Server box (commodity hardware) with about 80 terabytes of local storage. The game-changer? <strong><a href="https://learn.microsoft.com/en-us/azure/storage/file-sync/file-sync-introduction">Azure File Sync</a>.</strong></p>
 
-                <p>Here's the magic: files that haven't been accessed in a while get tiered to the cloud automatically. On our local server, they show up as placeholders. When someone needs an old file, it pulls down on demand. The stuff we use regularly stays local and fast.</p>
+                <p>The setup is beautifully simple. Users just drop files into a traditional file share like they always have. No special software, no new workflows. Behind the scenes, Azure File Sync is running on that server, connected to Azure Blob Storage.</p>
 
-                <p>The cost difference is absurd. We're talking pennies on the dollar compared to dedicated media storage solutions. For archival footage that might get accessed once a year? This makes so much sense.</p>
+                <h4>The Two Policies That Make It Work</h4>
+
+                <p>Azure File Sync uses two policies to manage what stays local and what gets tiered to the cloud:</p>
+
+                <ol>
+                    <li><strong>Time-based:</strong> Anything older than X number of days gets archived automatically.</li>
+                    <li><strong>Space-based:</strong> If free space drops below 20%, it starts moving older files up to the cloud.</li>
+                </ol>
+
+                <p>We started with maybe 10-20 terabytes of local storage. When the drives got old, we replaced them with larger, cheaper commodity drives. Now we've got around 80 terabytes locally, but we kept the same policies running. The system just handles it.</p>
+
+                <h4>The Magic: Streaming Recall</h4>
+
+                <p>Here's the really clever part. When someone needs an archived file (say, a 35GB clip or even a 2TB project folder) they just double-click it in File Explorer like normal. The file starts playing immediately while it streams down from Azure in the background. No waiting for a full download.</p>
+
+                <p>Once you access a file, it resets the clock on the time policy and adjusts the space calculations. The system assumes "they looked at this, they might want it" and keeps it local until it ages out again.</p>
+
+                <h4>The Cost Reality</h4>
+
+                <p>Azure Blob Storage costs pennies per terabyte. We're using the cheapest tier (slow storage) because we don't need fast access for archival footage. When you're shooting with RED cameras and going through a couple terabytes a month, this math matters.</p>
+
+                <p>The alternative (Frame.io archival storage or similar creative cloud storage) is insanely expensive by comparison. This solution lets us keep everything forever without making painful decisions about what to delete.</p>
+
+                <h4>The One Downside</h4>
+
+                <p>There's no indexing. No search. If you need that B-roll from 2019, you better remember what folder it's in. AI-powered search across our archive would be incredible, but the cost of running cognitive services across petabytes of video isn't worth it yet. Maybe someday.</p>
 
                 <h2>Active Storage: Frame.io</h2>
 
-                <p>For active projects—the stuff we're editing right now—we use Frame.io.</p>
+                <p>For active projects (the stuff we're editing right now) we use Frame.io.</p>
 
                 <p>The Adobe and Azure partnership here has been huge. Cloud-native editing workflows, real-time collaboration, AI-powered features for searching and organizing footage. It's built for creative teams who need to move fast.</p>
 
@@ -98,16 +123,7 @@
                 <ul>
                     <li><strong>UI that creatives can use.</strong> Drop-down menus. Visual interfaces. Drag and drop. My team are video producers, not sysadmins.</li>
                     <li><strong>Built for collaboration.</strong> Comments on frames, version tracking, approval workflows.</li>
-                    <li><strong>AI organization.</strong> Auto-transcription, searchable footage, smart tagging.</li>
                 </ul>
-
-                <h2>The CLI Problem</h2>
-
-                <p>Here's a rant: so many powerful tools require command-line interfaces. And look, I get it. CLIs are powerful, flexible, scriptable. Engineers love them.</p>
-
-                <p>But creative teams? We're visual people working on visual problems. We need to see our footage, scrub through timelines, drag things around. Asking an editor to run terminal commands to access their files is a non-starter.</p>
-
-                <p>Maybe one day there will be a bridge—powerful cloud tools with interfaces that creative people can actually use without calling IT. We're getting closer. But we're not there yet.</p>
 
                 <h2>The Bottom Line</h2>
 
