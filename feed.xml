@@ -6,8 +6,16 @@
     <link>https://golnazroughcut.com</link>
     <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 12 Jan 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 26 Jan 2026 00:00:00 GMT</lastBuildDate>
     
+    <item>
+      <title>The Art of the Oner</title>
+      <link>https://golnazroughcut.com/posts/the-art-of-the-oner.html</link>
+      <guid>https://golnazroughcut.com/posts/the-art-of-the-oner.html</guid>
+      <pubDate>Mon, 26 Jan 2026 00:00:00 GMT</pubDate>
+      <description>The magic of the one-shot take from Children of Men to corporate keynotes. Why oners work, famous examples, and why you see them at tech events.</description>
+    </item>
+
     <item>
       <title>What AI Has (and Hasn't) Taken Over in Video Production</title>
       <link>https://golnazroughcut.com/posts/ai-in-video-production.html</link>
