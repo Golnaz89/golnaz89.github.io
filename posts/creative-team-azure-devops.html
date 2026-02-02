@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How a Creative Team Learned to Love Azure DevOps - Golnaz.RoughCut</title>
+    <meta name="description" content="Using Azure DevOps and Power Automate to manage a video production team. Automation, transparency, and even GPT-powered workback schedules.">
+    <meta name="author" content="Golnaz">
+    <link rel="canonical" href="https://golnazroughcut.com/posts/creative-team-azure-devops.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="How a Creative Team Learned to Love Azure DevOps">
+    <meta property="og:description" content="Using Azure DevOps and Power Automate to manage a video production team. Yes, an engineering tool for creatives.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://golnazroughcut.com/posts/creative-team-azure-devops.html">
+    <meta property="og:image" content="https://golnazroughcut.com/images/creative-team-azure-devops-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@golnaz89">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "How a Creative Team Learned to Love Azure DevOps",
+      "author": {
+        "@type": "Person",
+        "name": "Golnaz",
+        "url": "https://twitter.com/golnaz89"
+      },
+      "datePublished": "2026-02-02",
+      "description": "Using Azure DevOps and Power Automate to manage a video production team.",
+      "publisher": {
+        "@type": "Person",
+        "name": "Golnaz"
+      }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-39E8YJ71FR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-39E8YJ71FR');
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <a href="../index.html" class="back-link">Back to all posts</a>
+
+        <article class="post">
+            <header class="post-header">
+                <time datetime="2026-02-02">2 February 2026</time>
+                <h1>How a Creative Team Learned to Love Azure DevOps</h1>
+            </header>
+
+            <div class="post-content">
+                <p>I know, I know. Azure DevOps is an engineering tool. It's built for sprints and pull requests and CI/CD pipelines. It's not exactly what you picture when you think "creative production workflow."</p>
+
+                <p>But here's the thing: it works for us. And the journey of figuring out how to make it work taught me a lot about what creative teams actually need to stay sane.</p>
+
+                <h2>Learning from Engineers</h2>
+
+                <p>Sitting in an engineering org for 15 years, I've watched how software teams manage their work. Agile. Sprint planning. Standups. Retrospectives. Backlogs groomed within an inch of their lives.</p>
+
+                <p>Creatives are not naturally like this. We're visual thinkers, not systems thinkers. We're deadline-driven, not sprint-driven. We tend to keep things in color-coded Excel files, Word docs, and PowerPoint decks that help us see things visually.</p>
+
+                <p>But I was always intrigued by the transparency that engineering teams had. Everyone knew what everyone was working on. There was a system. There was accountability. Nobody was surprised when something was due.</p>
+
+                <p>I wanted that for my team. Not the rigidity, but the clarity.</p>
+
+                <h2>What We Actually Needed</h2>
+
+                <p>When I started thinking about process for a creative team, here's what mattered:</p>
+
+                <ul>
+                    <li><strong>Transparency.</strong> Everyone should be able to see what's in the queue, what's in progress, and what's blocked.</li>
+                    <li><strong>Accountability.</strong> If something is assigned to you, it's yours. No ambiguity.</li>
+                    <li><strong>Preventing overwhelm.</strong> If a work item has been sitting in your queue for weeks, that's a signal. We need to see it before it becomes a crisis.</li>
+                    <li><strong>Knowing when to scale.</strong> Are we drowning? Do we need contractors? Can we slow down? You can't answer those questions without data.</li>
+                </ul>
+
+                <p>Project management isn't just about tracking tasks. It's about protecting your team.</p>
+
+                <h2>Why Azure DevOps</h2>
+
+                <p>Yes, it's an engineering tool. But here's why it works for us:</p>
+
+                <h3>Automation</h3>
+                <p>This is the big one. When we create a work item for a video project, we don't manually add all the subtasks. Power Automate flows kick in and automatically create the tasks that every video needs: filming, uploading, editing, review, publish. It happens instantly. No one forgets a step.</p>
+
+                <h3>Knowledge Sharing</h3>
+                <p>Being in the same system as the engineering teams we work with means we speak the same language. We can link our work items to their wiki articles. We can share dashboards. When a PM asks "what's the status of the video for Feature X," we can show them in a tool they already understand.</p>
+
+                <h3>Customization</h3>
+                <p>We've bent Azure DevOps to fit our workflow, not the other way around. Custom fields for video type, platform, stakeholder. Custom boards that reflect how creative work actually moves. It took time to set up, but now it's ours.</p>
+
+                <h2>The Power Automate Magic</h2>
+
+                <p>Power Automate has been a game changer for eliminating repetitive work. Here's what we've automated:</p>
+
+                <ul>
+                    <li><strong>Task creation.</strong> New video work item? Automatically generates subtasks for each phase of production.</li>
+                    <li><strong>Notifications.</strong> When something moves to "Ready for Review," the right people get pinged automatically.</li>
+                    <li><strong>Status updates.</strong> Stakeholders get weekly digests pulled straight from the board. No one has to manually write status reports.</li>
+                </ul>
+
+                <p>Every hour we save on process is an hour we get back for creative work.</p>
+
+                <h2>AI in the Loop</h2>
+
+                <p>Here's where it gets fun. We use Microsoft Forms to ingest new requests from stakeholders. When a form comes in, we have a Power Automate flow that makes an HTTP POST call to the GPT-5 API.</p>
+
+                <img src="../images/architectureforflow.png" alt="Architecture diagram showing our Power Automate flow with GPT-5 integration" style="max-width: 100%; margin: 1.5em 0;">
+
+                <p>What does GPT do? It acts as a mini producer. Based on the request details, target date, and video type, it generates a workback schedule. Suggested milestones. Realistic timelines based on our historical data.</p>
+
+                <p>Is it perfect? No. But it's a starting point that used to take 30 minutes to create manually. Now we review and adjust instead of building from scratch.</p>
+
+                <p>AI as a producer's assistant. I never thought I'd type that sentence, but here we are.</p>
+
+                <h2>The Art of PM'ing</h2>
+
+                <p>I've come to believe that project management is an art form. Not the tool, not the methodology, but the practice of it.</p>
+
+                <p>Good PM'ing is about:</p>
+
+                <ul>
+                    <li>Seeing the patterns before they become problems</li>
+                    <li>Protecting your team's time and energy</li>
+                    <li>Creating systems that flex instead of break</li>
+                    <li>Improving continuously, week over week, month over month</li>
+                </ul>
+
+                <p>I love looking back at where we were six months ago versus where we are now. Faster turnarounds. Fewer surprises. Less burnout. That's the real metric.</p>
+
+                <h2>It's Never Done</h2>
+
+                <p>The process is never finished. Every few weeks we look at what's working and what's not. Where are the bottlenecks? What's causing stress? What automation could we add?</p>
+
+                <p>Finding efficiencies, improving delivery, protecting the team, that's not overhead. That's the work. And when you get it right, everything else gets easier.</p>
+
+                <p>Even for a creative team using an engineering tool.</p>
+
+            </div>
+        </article>
+    </div>
+</body>
+</html>
