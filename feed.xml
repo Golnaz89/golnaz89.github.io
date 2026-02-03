@@ -6,8 +6,16 @@
     <link>https://golnazroughcut.com</link>
     <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 26 Jan 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 03 Feb 2026 00:00:00 GMT</lastBuildDate>
     
+    <item>
+      <title>How a Creative Team Learned to Love Azure DevOps</title>
+      <link>https://golnazroughcut.com/posts/creative-team-azure-devops.html</link>
+      <guid>https://golnazroughcut.com/posts/creative-team-azure-devops.html</guid>
+      <pubDate>Tue, 03 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Using Azure DevOps and Power Automate to manage a video production team. Automation, transparency, and even GPT-powered workback schedules.</description>
+    </item>
+
     <item>
       <title>The Art of the Oner</title>
       <link>https://golnazroughcut.com/posts/the-art-of-the-oner.html</link>
