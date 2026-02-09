@@ -72,14 +72,15 @@ header h1 a:hover {
 }
 
 .bio {
-    color: var(--secondary-color);
+    color: var(--primary-color);
     font-size: 0.95em;
+    margin: 1em 0 0 0;
     line-height: 1.6;
-    margin: 15px 0 0 0;
+    max-width: 600px;
 }
 
 .bio strong {
-    color: var(--primary-color);
+    font-weight: 600;
 }
 
 .social-links {
@@ -94,13 +95,6 @@ header h1 a:hover {
 
 .social-links a:hover {
     text-decoration: underline;
-}
-
-.disclaimer {
-    font-size: 0.75em;
-    color: #999;
-    font-style: italic;
-    margin-top: 20px;
 }
 
 /* Post List Styles */
@@ -322,30 +316,4 @@ footer p {
     .post-preview h2 {
         font-size: 1.3em;
     }
-}
-
-/* 404 Error Page */
-.error-page {
-    text-align: center;
-    padding: 60px 20px;
-}
-
-.error-page h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-}
-
-.error-page p {
-    font-size: 1.1em;
-    color: var(--secondary-color);
-    margin-bottom: 15px;
-}
-
-.error-page a {
-    color: var(--accent-color);
-    text-decoration: none;
-}
-
-.error-page a:hover {
-    text-decoration: underline;
 }
