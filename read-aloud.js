@@ -101,6 +101,11 @@
             return;
         }
 
+        // Enable pause as soon as we start
+        isPlaying = true;
+        isPaused = false;
+        updateButton('playing');
+
         // Use SSML for better control
         const ssml = `
             <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US">
@@ -115,18 +120,18 @@
         synthesizer.speakSsmlAsync(
             ssml,
             function(result) {
-                if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                    isPlaying = true;
-                    isPaused = false;
-                    updateButton('playing');
-                } else {
+                if (result.reason !== SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
                     console.error('Speech synthesis failed:', result.errorDetails);
+                    isPlaying = false;
+                    isPaused = false;
                     updateButton('stopped');
                     alert('Error generating speech: ' + result.errorDetails);
                 }
             },
             function(error) {
                 console.error('Speech synthesis error:', error);
+                isPlaying = false;
+                isPaused = false;
                 updateButton('stopped');
                 alert('Error generating speech. Please check your Azure Speech configuration.');
             }
