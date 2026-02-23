@@ -89,11 +89,12 @@
                 },
                 body: JSON.stringify({
                     text: text,
-                    model_id: 'eleven_multilingual_v2',
+                    model_id: 'eleven_turbo_v2_5',  // Faster model, still high quality
                     voice_settings: {
                         stability: 0.5,
                         similarity_boost: 0.75
-                    }
+                    },
+                    optimize_streaming_latency: 4  // Maximum latency optimization
                 }),
                 signal: abortController.signal
             });
@@ -103,8 +104,21 @@
                 throw new Error(`ElevenLabs API error: ${response.status} - ${error}`);
             }
 
-            const audioBlob = await response.blob();
-            const audioUrl = URL.createObjectURL(audioBlob);
+            // Stream and start playing as soon as we have enough data
+            const reader = response.body.getReader();
+            const chunks = [];
+            let receivedBytes = 0;
+            let audioUrl = null;
+            
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
+                chunks.push(value);
+                receivedBytes += value.length;
+            }
+            
+            const audioBlob = new Blob(chunks, { type: 'audio/mpeg' });
+            audioUrl = URL.createObjectURL(audioBlob);
             
             audioElement = new Audio(audioUrl);
             
