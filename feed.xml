@@ -6,8 +6,16 @@
     <link>https://golnazroughcut.com</link>
     <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 09 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 23 Feb 2026 00:00:00 GMT</lastBuildDate>
     
+    <item>
+      <title>Active vs Archival Storage: How We Store Petabytes on Pennies</title>
+      <link>https://golnazroughcut.com/posts/storage-active-vs-archival.html</link>
+      <guid>https://golnazroughcut.com/posts/storage-active-vs-archival.html</guid>
+      <pubDate>Mon, 23 Feb 2026 00:00:00 GMT</pubDate>
+      <description>Video production storage strategy using Azure File Sync and Frame.io. Moving from expensive SNS EVO to cloud tiering that costs pennies on the dollar.</description>
+    </item>
+
     <item>
       <title>What Came First: The Content or the Platform?</title>
       <link>https://golnazroughcut.com/posts/content-or-platform-first.html</link>
