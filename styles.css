@@ -287,6 +287,45 @@ header h1 a:hover {
     content: "← ";
 }
 
+/* Read Aloud Button */
+.read-aloud-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    margin-top: 15px;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    color: var(--secondary-color);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.read-aloud-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.read-aloud-btn.playing {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    background: rgba(64, 120, 192, 0.05);
+}
+
+.read-aloud-btn.paused {
+    border-color: var(--secondary-color);
+}
+
+.read-aloud-icon {
+    font-size: 0.85em;
+}
+
+.read-aloud-text {
+    font-weight: 500;
+}
+
 /* Footer Styles */
 footer {
     padding-top: 30px;
