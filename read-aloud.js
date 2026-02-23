@@ -30,14 +30,17 @@
             .trim();
     }
 
-    // Split text into chunks (~500 chars each, at sentence boundaries)
+    // Split text into chunks - first chunk small for fast start, rest larger
     function splitIntoChunks(text) {
         const chunks = [];
         const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
         let currentChunk = '';
+        const FIRST_CHUNK_SIZE = 150;  // Small first chunk for quick start
+        const CHUNK_SIZE = 400;        // Regular chunks
         
         for (const sentence of sentences) {
-            if (currentChunk.length + sentence.length > 500 && currentChunk.length > 0) {
+            const maxSize = chunks.length === 0 ? FIRST_CHUNK_SIZE : CHUNK_SIZE;
+            if (currentChunk.length + sentence.length > maxSize && currentChunk.length > 0) {
                 chunks.push(currentChunk.trim());
                 currentChunk = sentence;
             } else {
@@ -95,7 +98,7 @@
             audioElement = null;
         }
         // Clean up queued audio URLs
-        audioQueue.forEach(url => URL.revokeObjectURL(url));
+        audioQueue.forEach(url => { if (url) URL.revokeObjectURL(url); });
         audioQueue = [];
         textChunks = [];
         currentChunkIndex = 0;
@@ -134,17 +137,17 @@
     }
 
     async function preloadNextChunks() {
-        // Generate next 2 chunks in background
-        while (isGenerating && audioQueue.length < currentChunkIndex + 3 && audioQueue.length < textChunks.length) {
-            const idx = audioQueue.length;
-            try {
-                const audioUrl = await generateChunkAudio(textChunks[idx]);
-                if (isGenerating) {
-                    audioQueue.push(audioUrl);
+        // Find next chunks that need generating
+        for (let i = 0; i < textChunks.length && isGenerating; i++) {
+            if (audioQueue[i] === null) {
+                try {
+                    const audioUrl = await generateChunkAudio(textChunks[i]);
+                    if (isGenerating) {
+                        audioQueue[i] = audioUrl;
+                    }
+                } catch (e) {
+                    if (e.name !== 'AbortError') console.error('Preload error:', e);
                 }
-            } catch (e) {
-                if (e.name !== 'AbortError') console.error('Preload error:', e);
-                break;
             }
         }
     }
@@ -155,7 +158,7 @@
             return;
         }
 
-        if (currentChunkIndex >= audioQueue.length) {
+        if (!audioQueue[currentChunkIndex]) {
             // Audio not ready yet, wait a bit
             setTimeout(playNextChunk, 100);
             return;
@@ -189,23 +192,39 @@
         
         textChunks = splitIntoChunks(text);
         currentChunkIndex = 0;
-        audioQueue = [];
+        audioQueue = new Array(textChunks.length).fill(null);
         
         try {
-            // Generate first chunk and start playing immediately
-            const firstAudioUrl = await generateChunkAudio(textChunks[0]);
+            // Generate first 2 chunks in parallel for faster start
+            const firstChunksToGenerate = Math.min(2, textChunks.length);
+            const promises = [];
+            for (let i = 0; i < firstChunksToGenerate; i++) {
+                promises.push(generateChunkAudio(textChunks[i]).then(url => ({ index: i, url })));
+            }
+            
+            // Wait for first chunk only, start playing immediately
+            const first = await Promise.race(promises.map((p, i) => p.then(r => r)));
             if (!isGenerating) return;
             
-            audioQueue.push(firstAudioUrl);
-            isPlaying = true;
-            isPaused = false;
-            updateButton('playing');
+            audioQueue[first.index] = first.url;
             
-            // Start playing first chunk
-            playNextChunk();
+            // If first chunk ready, start playing
+            if (audioQueue[0]) {
+                isPlaying = true;
+                isPaused = false;
+                updateButton('playing');
+                playNextChunk();
+            }
             
-            // Preload remaining chunks in background
-            preloadNextChunks();
+            // Collect remaining parallel results and preload more
+            Promise.all(promises).then(results => {
+                results.forEach(r => {
+                    if (isGenerating && !audioQueue[r.index]) {
+                        audioQueue[r.index] = r.url;
+                    }
+                });
+                preloadNextChunks();
+            });
             
         } catch (error) {
             if (error.name === 'AbortError') {
