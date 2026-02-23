@@ -7,8 +7,9 @@
     // ============================================
     const AZURE_SPEECH_KEY = 'REPLACE_WITH_YOUR_KEY';
     const AZURE_SPEECH_REGION = 'eastus';
-    const VOICE_NAME = 'en-US-AvaMultilingualNeural';   // Natural, friendly voice
-    // Other good voices: en-US-JennyNeural, en-US-AriaNeural, en-US-SaraNeural
+    const VOICE_NAME = 'en-US-JennyNeural';   // Natural, friendly voice
+    // Other good voices: en-US-AriaNeural, en-US-SaraNeural, en-US-GuyNeural
+    // Note: Multilingual/Professional voices (e.g., AvaMultilingualNeural) require special access
     // ============================================
 
     let audioElement = null;
