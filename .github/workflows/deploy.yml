@@ -21,9 +21,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject Azure Speech Key
+      - name: Inject ElevenLabs API Key
         run: |
-          sed -i "s/REPLACE_WITH_YOUR_KEY/${{ secrets.AZURE_SPEECH_KEY }}/g" read-aloud.js
+          sed -i "s/REPLACE_WITH_YOUR_KEY/${{ secrets.ELEVENLABS_API_KEY }}/g" read-aloud.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

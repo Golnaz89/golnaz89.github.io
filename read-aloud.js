@@ -1,20 +1,18 @@
-// Read Aloud - Azure Speech Text-to-Speech for Blog Posts
+// Read Aloud - ElevenLabs Text-to-Speech for Blog Posts
 (function() {
     'use strict';
 
     // ============================================
-    // CONFIGURATION - Azure Speech details
+    // CONFIGURATION - ElevenLabs details
     // ============================================
-    const AZURE_SPEECH_KEY = 'REPLACE_WITH_YOUR_KEY';
-    const AZURE_SPEECH_REGION = 'eastus';
-    const VOICE_NAME = 'en-US-JennyNeural';   // Natural, friendly voice
-    // Other good voices: en-US-AriaNeural, en-US-SaraNeural, en-US-GuyNeural
+    const ELEVENLABS_API_KEY = 'REPLACE_WITH_YOUR_KEY';
+    const VOICE_ID = '5O9bGNrPTviUOxnusv12';
     // ============================================
 
-    let player = null;
-    let synthesizer = null;
+    let audioElement = null;
     let isPlaying = false;
     let isPaused = false;
+    let abortController = null;
 
     function getPostContent() {
         const postContent = document.querySelector('.post-content');
@@ -36,114 +34,115 @@
         const text = btn.querySelector('.read-aloud-text');
         
         switch(state) {
+            case 'loading':
+                icon.textContent = '⏳';
+                text.textContent = 'Loading...';
+                btn.classList.add('loading');
+                btn.classList.remove('playing', 'paused');
+                break;
             case 'playing':
                 icon.textContent = '⏸';
                 text.textContent = 'Pause';
                 btn.classList.add('playing');
-                btn.classList.remove('paused');
+                btn.classList.remove('paused', 'loading');
                 break;
             case 'paused':
                 icon.textContent = '▶';
                 text.textContent = 'Resume';
-                btn.classList.remove('playing');
+                btn.classList.remove('playing', 'loading');
                 btn.classList.add('paused');
                 break;
             case 'stopped':
             default:
                 icon.textContent = '▶';
                 text.textContent = 'Listen';
-                btn.classList.remove('playing', 'paused');
+                btn.classList.remove('playing', 'paused', 'loading');
                 break;
         }
     }
 
     function stopPlayback() {
-        if (player) {
-            player.pause();
-            player.close();
-            player = null;
+        if (abortController) {
+            abortController.abort();
+            abortController = null;
         }
-        if (synthesizer) {
-            synthesizer.close();
-            synthesizer = null;
+        if (audioElement) {
+            audioElement.pause();
+            audioElement = null;
         }
         isPlaying = false;
         isPaused = false;
         updateButton('stopped');
     }
 
-    function speak(text) {
-        if (!window.SpeechSDK) {
-            alert('Speech SDK not loaded. Please refresh the page.');
-            return;
-        }
-
+    async function speak(text) {
+        updateButton('loading');
+        abortController = new AbortController();
+        
         try {
-            const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(AZURE_SPEECH_KEY, AZURE_SPEECH_REGION);
-            speechConfig.speechSynthesisVoiceName = VOICE_NAME;
+            const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}/stream`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'audio/mpeg',
+                    'Content-Type': 'application/json',
+                    'xi-api-key': ELEVENLABS_API_KEY
+                },
+                body: JSON.stringify({
+                    text: text,
+                    model_id: 'eleven_multilingual_v2',
+                    voice_settings: {
+                        stability: 0.5,
+                        similarity_boost: 0.75
+                    }
+                }),
+                signal: abortController.signal
+            });
+
+            if (!response.ok) {
+                const error = await response.text();
+                throw new Error(`ElevenLabs API error: ${response.status} - ${error}`);
+            }
+
+            const audioBlob = await response.blob();
+            const audioUrl = URL.createObjectURL(audioBlob);
             
-            player = new SpeechSDK.SpeakerAudioDestination();
+            audioElement = new Audio(audioUrl);
             
-            player.onAudioStart = function() {
-                isPlaying = true;
-                isPaused = false;
-                updateButton('playing');
-            };
-            
-            player.onAudioEnd = function() {
+            audioElement.onended = function() {
+                URL.revokeObjectURL(audioUrl);
                 stopPlayback();
             };
 
-            const audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
-            synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
-
-            // Start immediately and show playing state
+            audioElement.onerror = function(e) {
+                console.error('Audio playback error:', e);
+                URL.revokeObjectURL(audioUrl);
+                stopPlayback();
+            };
+            
+            await audioElement.play();
             isPlaying = true;
             isPaused = false;
             updateButton('playing');
-
-            const ssml = `
-                <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US">
-                    <voice name="${VOICE_NAME}">
-                        <prosody rate="0%" pitch="0%">
-                            ${text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
-                        </prosody>
-                    </voice>
-                </speak>
-            `;
-
-            synthesizer.speakSsmlAsync(
-                ssml,
-                function(result) {
-                    if (result.reason !== SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                        console.error('Synthesis error:', result.errorDetails);
-                        stopPlayback();
-                        alert('Error: ' + (result.errorDetails || 'Speech synthesis failed'));
-                    }
-                },
-                function(error) {
-                    console.error('Synthesis error:', error);
-                    stopPlayback();
-                    alert('Error: ' + error);
-                }
-            );
             
         } catch (error) {
-            console.error('Speech error:', error);
+            if (error.name === 'AbortError') {
+                return; // User cancelled
+            }
+            console.error('Speech synthesis error:', error);
             stopPlayback();
             alert('Error: ' + error.message);
         }
     }
 
     function togglePlayPause() {
-        if (isPlaying && !isPaused && player) {
-            // Pause immediately
-            player.pause();
+        if (isPlaying && !isPaused && audioElement) {
+            // Pause
+            audioElement.pause();
             isPaused = true;
             updateButton('paused');
-        } else if (isPaused && player) {
+        } else if (isPaused && audioElement) {
             // Resume
-            player.resume();
+            audioElement.play();
             isPaused = false;
             updateButton('playing');
         } else {
@@ -167,17 +166,9 @@
         });
     }
 
-    function waitForSDK() {
-        if (window.SpeechSDK) {
-            init();
-        } else {
-            setTimeout(waitForSDK, 100);
-        }
-    }
-
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', waitForSDK);
+        document.addEventListener('DOMContentLoaded', init);
     } else {
-        waitForSDK();
+        init();
     }
 })();
