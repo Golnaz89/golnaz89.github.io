@@ -13,6 +13,10 @@
     let isPlaying = false;
     let isPaused = false;
     let abortController = null;
+    let textChunks = [];
+    let currentChunkIndex = 0;
+    let audioQueue = [];
+    let isGenerating = false;
 
     function getPostContent() {
         const postContent = document.querySelector('.post-content');
@@ -24,6 +28,26 @@
         return clone.textContent
             .replace(/\s+/g, ' ')
             .trim();
+    }
+
+    // Split text into chunks (~500 chars each, at sentence boundaries)
+    function splitIntoChunks(text) {
+        const chunks = [];
+        const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+        let currentChunk = '';
+        
+        for (const sentence of sentences) {
+            if (currentChunk.length + sentence.length > 500 && currentChunk.length > 0) {
+                chunks.push(currentChunk.trim());
+                currentChunk = sentence;
+            } else {
+                currentChunk += sentence;
+            }
+        }
+        if (currentChunk.trim()) {
+            chunks.push(currentChunk.trim());
+        }
+        return chunks;
     }
 
     function updateButton(state) {
@@ -70,77 +94,122 @@
             audioElement.pause();
             audioElement = null;
         }
+        // Clean up queued audio URLs
+        audioQueue.forEach(url => URL.revokeObjectURL(url));
+        audioQueue = [];
+        textChunks = [];
+        currentChunkIndex = 0;
         isPlaying = false;
         isPaused = false;
+        isGenerating = false;
         updateButton('stopped');
+    }
+
+    async function generateChunkAudio(text) {
+        const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'audio/mpeg',
+                'Content-Type': 'application/json',
+                'xi-api-key': ELEVENLABS_API_KEY
+            },
+            body: JSON.stringify({
+                text: text,
+                model_id: 'eleven_turbo_v2_5',
+                voice_settings: {
+                    stability: 0.5,
+                    similarity_boost: 0.75
+                }
+            }),
+            signal: abortController.signal
+        });
+
+        if (!response.ok) {
+            const error = await response.text();
+            throw new Error(`ElevenLabs API error: ${response.status} - ${error}`);
+        }
+
+        const audioBlob = await response.blob();
+        return URL.createObjectURL(audioBlob);
+    }
+
+    async function preloadNextChunks() {
+        // Generate next 2 chunks in background
+        while (isGenerating && audioQueue.length < currentChunkIndex + 3 && audioQueue.length < textChunks.length) {
+            const idx = audioQueue.length;
+            try {
+                const audioUrl = await generateChunkAudio(textChunks[idx]);
+                if (isGenerating) {
+                    audioQueue.push(audioUrl);
+                }
+            } catch (e) {
+                if (e.name !== 'AbortError') console.error('Preload error:', e);
+                break;
+            }
+        }
+    }
+
+    function playNextChunk() {
+        if (!isPlaying || currentChunkIndex >= textChunks.length) {
+            stopPlayback();
+            return;
+        }
+
+        if (currentChunkIndex >= audioQueue.length) {
+            // Audio not ready yet, wait a bit
+            setTimeout(playNextChunk, 100);
+            return;
+        }
+
+        const audioUrl = audioQueue[currentChunkIndex];
+        audioElement = new Audio(audioUrl);
+        
+        audioElement.onended = function() {
+            currentChunkIndex++;
+            if (isPlaying && !isPaused) {
+                playNextChunk();
+            }
+        };
+
+        audioElement.onerror = function(e) {
+            console.error('Audio playback error:', e);
+            stopPlayback();
+        };
+
+        audioElement.play().catch(e => {
+            console.error('Play error:', e);
+            stopPlayback();
+        });
     }
 
     async function speak(text) {
         updateButton('loading');
         abortController = new AbortController();
+        isGenerating = true;
+        
+        textChunks = splitIntoChunks(text);
+        currentChunkIndex = 0;
+        audioQueue = [];
         
         try {
-            const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}/stream`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'audio/mpeg',
-                    'Content-Type': 'application/json',
-                    'xi-api-key': ELEVENLABS_API_KEY
-                },
-                body: JSON.stringify({
-                    text: text,
-                    model_id: 'eleven_turbo_v2_5',  // Faster model, still high quality
-                    voice_settings: {
-                        stability: 0.5,
-                        similarity_boost: 0.75
-                    },
-                    optimize_streaming_latency: 4  // Maximum latency optimization
-                }),
-                signal: abortController.signal
-            });
-
-            if (!response.ok) {
-                const error = await response.text();
-                throw new Error(`ElevenLabs API error: ${response.status} - ${error}`);
-            }
-
-            // Stream and start playing as soon as we have enough data
-            const reader = response.body.getReader();
-            const chunks = [];
-            let receivedBytes = 0;
-            let audioUrl = null;
+            // Generate first chunk and start playing immediately
+            const firstAudioUrl = await generateChunkAudio(textChunks[0]);
+            if (!isGenerating) return;
             
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                chunks.push(value);
-                receivedBytes += value.length;
-            }
-            
-            const audioBlob = new Blob(chunks, { type: 'audio/mpeg' });
-            audioUrl = URL.createObjectURL(audioBlob);
-            
-            audioElement = new Audio(audioUrl);
-            
-            audioElement.onended = function() {
-                URL.revokeObjectURL(audioUrl);
-                stopPlayback();
-            };
-
-            audioElement.onerror = function(e) {
-                console.error('Audio playback error:', e);
-                URL.revokeObjectURL(audioUrl);
-                stopPlayback();
-            };
-            
-            await audioElement.play();
+            audioQueue.push(firstAudioUrl);
             isPlaying = true;
             isPaused = false;
             updateButton('playing');
             
+            // Start playing first chunk
+            playNextChunk();
+            
+            // Preload remaining chunks in background
+            preloadNextChunks();
+            
         } catch (error) {
             if (error.name === 'AbortError') {
-                return; // User cancelled
+                return;
             }
             console.error('Speech synthesis error:', error);
             stopPlayback();
@@ -150,17 +219,14 @@
 
     function togglePlayPause() {
         if (isPlaying && !isPaused && audioElement) {
-            // Pause
             audioElement.pause();
             isPaused = true;
             updateButton('paused');
         } else if (isPaused && audioElement) {
-            // Resume
             audioElement.play();
             isPaused = false;
             updateButton('playing');
         } else {
-            // Start fresh
             stopPlayback();
             const text = getPostContent();
             if (text) {
