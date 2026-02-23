@@ -11,8 +11,7 @@
     // Other good voices: en-US-JennyNeural, en-US-AriaNeural, en-US-SaraNeural
     // ============================================
 
-    let synthesizer = null;
-    let player = null;
+    let audioElement = null;
     let isPlaying = false;
     let isPaused = false;
 
@@ -41,119 +40,125 @@
                 text.textContent = 'Loading...';
                 btn.classList.add('loading');
                 btn.classList.remove('playing', 'paused');
-                btn.disabled = true;
                 break;
             case 'playing':
                 icon.textContent = '⏸';
                 text.textContent = 'Pause';
                 btn.classList.add('playing');
                 btn.classList.remove('paused', 'loading');
-                btn.disabled = false;
                 break;
             case 'paused':
                 icon.textContent = '▶';
                 text.textContent = 'Resume';
                 btn.classList.remove('playing', 'loading');
                 btn.classList.add('paused');
-                btn.disabled = false;
                 break;
             case 'stopped':
             default:
                 icon.textContent = '▶';
                 text.textContent = 'Listen';
                 btn.classList.remove('playing', 'paused', 'loading');
-                btn.disabled = false;
                 break;
         }
     }
 
-    function initSynthesizer() {
+    async function synthesizeSpeech(text) {
         if (!window.SpeechSDK) {
-            console.error('Speech SDK not loaded');
-            return null;
+            throw new Error('Speech SDK not loaded');
         }
 
-        const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(AZURE_SPEECH_KEY, AZURE_SPEECH_REGION);
-        speechConfig.speechSynthesisVoiceName = VOICE_NAME;
-        
-        player = new SpeechSDK.SpeakerAudioDestination();
-        const audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
-        
-        player.onAudioEnd = function() {
-            isPlaying = false;
-            isPaused = false;
-            updateButton('stopped');
-        };
+        return new Promise((resolve, reject) => {
+            const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(AZURE_SPEECH_KEY, AZURE_SPEECH_REGION);
+            speechConfig.speechSynthesisVoiceName = VOICE_NAME;
+            speechConfig.speechSynthesisOutputFormat = SpeechSDK.SpeechSynthesisOutputFormat.Audio24Khz160KBitRateMonoMp3;
+            
+            const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, null);
 
-        return new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+            const ssml = `
+                <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US">
+                    <voice name="${VOICE_NAME}">
+                        <prosody rate="0%" pitch="0%">
+                            ${text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                        </prosody>
+                    </voice>
+                </speak>
+            `;
+
+            synthesizer.speakSsmlAsync(
+                ssml,
+                function(result) {
+                    synthesizer.close();
+                    if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+                        const blob = new Blob([result.audioData], { type: 'audio/mp3' });
+                        resolve(URL.createObjectURL(blob));
+                    } else {
+                        reject(new Error(result.errorDetails || 'Synthesis failed'));
+                    }
+                },
+                function(error) {
+                    synthesizer.close();
+                    reject(error);
+                }
+            );
+        });
     }
 
-    function speak(text) {
+    async function speak(text) {
         updateButton('loading');
         
-        if (!synthesizer) {
-            synthesizer = initSynthesizer();
-        }
-        
-        if (!synthesizer) {
-            alert('Speech SDK failed to load. Please refresh the page.');
-            updateButton('stopped');
-            return;
-        }
-
-        // Enable pause as soon as we start
-        isPlaying = true;
-        isPaused = false;
-        updateButton('playing');
-
-        // Use SSML for better control
-        const ssml = `
-            <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US">
-                <voice name="${VOICE_NAME}">
-                    <prosody rate="0%" pitch="0%">
-                        ${text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
-                    </prosody>
-                </voice>
-            </speak>
-        `;
-
-        synthesizer.speakSsmlAsync(
-            ssml,
-            function(result) {
-                if (result.reason !== SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                    console.error('Speech synthesis failed:', result.errorDetails);
-                    isPlaying = false;
-                    isPaused = false;
-                    updateButton('stopped');
-                    alert('Error generating speech: ' + result.errorDetails);
-                }
-            },
-            function(error) {
-                console.error('Speech synthesis error:', error);
+        try {
+            const audioUrl = await synthesizeSpeech(text);
+            
+            audioElement = new Audio(audioUrl);
+            
+            audioElement.onended = function() {
                 isPlaying = false;
                 isPaused = false;
                 updateButton('stopped');
-                alert('Error generating speech. Please check your Azure Speech configuration.');
+            };
+
+            audioElement.onerror = function(e) {
+                console.error('Audio playback error:', e);
+                isPlaying = false;
+                isPaused = false;
+                updateButton('stopped');
+            };
+            
+            await audioElement.play();
+            isPlaying = true;
+            isPaused = false;
+            updateButton('playing');
+            
+        } catch (error) {
+            console.error('Speech synthesis error:', error);
+            isPlaying = false;
+            isPaused = false;
+            updateButton('stopped');
+            
+            if (AZURE_SPEECH_KEY === 'REPLACE_WITH_YOUR_KEY') {
+                alert('Azure Speech key not configured.');
+            } else {
+                alert('Error: ' + error.message);
             }
-        );
+        }
     }
 
     function togglePlayPause() {
-        if (isPlaying && !isPaused && player) {
+        if (isPlaying && !isPaused && audioElement) {
             // Pause
-            player.pause();
+            audioElement.pause();
             isPaused = true;
             updateButton('paused');
-        } else if (isPaused && player) {
+        } else if (isPaused && audioElement) {
             // Resume
-            player.resume();
+            audioElement.play();
             isPaused = false;
             updateButton('playing');
         } else {
             // Start fresh
-            if (synthesizer) {
-                synthesizer.close();
-                synthesizer = null;
+            if (audioElement) {
+                audioElement.pause();
+                audioElement = null;
             }
             const text = getPostContent();
             if (text) {
@@ -168,15 +173,13 @@
 
         btn.addEventListener('click', togglePlayPause);
 
-        // Clean up when leaving the page
         window.addEventListener('beforeunload', function() {
-            if (synthesizer) {
-                synthesizer.close();
+            if (audioElement) {
+                audioElement.pause();
             }
         });
     }
 
-    // Wait for SDK to load, then initialize
     function waitForSDK() {
         if (window.SpeechSDK) {
             init();
