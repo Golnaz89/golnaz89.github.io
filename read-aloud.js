@@ -79,24 +79,38 @@
         const btn = document.getElementById('read-aloud-btn');
         if (!btn || document.querySelector('.read-aloud-player')) return;
 
+        // Estimate duration from post content
+        const text = getPostContent();
+        if (text) {
+            totalTextLength = text.length;
+            // Estimate ~150 words per minute, ~5 chars per word
+            estimatedTotalDuration = (totalTextLength / 5) / 150 * 60;
+        }
+
+        // Add label above player
+        const label = document.createElement('div');
+        label.className = 'read-aloud-label';
+        label.textContent = '🎙️ Listen to this blog post';
+        btn.parentNode.insertBefore(label, btn);
+
         // Wrap button in player container
         const player = document.createElement('div');
         player.className = 'read-aloud-player';
         btn.parentNode.insertBefore(player, btn);
         player.appendChild(btn);
 
-        // Create timeline
+        // Create timeline - time first, then track (horizontal layout)
         const timeline = document.createElement('div');
         timeline.className = 'read-aloud-timeline';
         timeline.innerHTML = `
+            <div class="timeline-time">
+                <span class="time-current">0:00</span>
+                <span class="time-separator">/</span>
+                <span class="time-total">${formatTime(estimatedTotalDuration)}</span>
+            </div>
             <div class="timeline-track">
                 <div class="timeline-buffered"></div>
                 <div class="timeline-progress"></div>
-                <div class="timeline-handle"></div>
-            </div>
-            <div class="timeline-time">
-                <span class="time-current">0:00</span>
-                <span class="time-total">0:00</span>
             </div>
         `;
         player.appendChild(timeline);
@@ -110,7 +124,6 @@
     function updateTimeline() {
         const progress = document.querySelector('.timeline-progress');
         const buffered = document.querySelector('.timeline-buffered');
-        const handle = document.querySelector('.timeline-handle');
         const currentTime = document.querySelector('.time-current');
         const totalTime = document.querySelector('.time-total');
         
@@ -135,7 +148,6 @@
 
         progress.style.width = `${progressPercent}%`;
         buffered.style.width = `${bufferedPercent}%`;
-        handle.style.left = `${progressPercent}%`;
         
         currentTime.textContent = formatTime(currentPos);
         totalTime.textContent = formatTime(estimatedTotalDuration);
@@ -202,7 +214,6 @@
         
         const icon = btn.querySelector('.read-aloud-icon');
         const text = btn.querySelector('.read-aloud-text');
-        const player = document.querySelector('.read-aloud-player');
         
         switch(state) {
             case 'loading':
@@ -210,28 +221,24 @@
                 text.textContent = 'Loading...';
                 btn.classList.add('loading');
                 btn.classList.remove('playing', 'paused');
-                if (player) player.classList.add('active');
                 break;
             case 'playing':
                 icon.textContent = '⏸';
                 text.textContent = 'Pause';
                 btn.classList.add('playing');
                 btn.classList.remove('paused', 'loading');
-                if (player) player.classList.add('active');
                 break;
             case 'paused':
                 icon.textContent = '▶';
                 text.textContent = 'Resume';
                 btn.classList.remove('playing', 'loading');
                 btn.classList.add('paused');
-                if (player) player.classList.add('active');
                 break;
             case 'stopped':
             default:
                 icon.textContent = '▶';
                 text.textContent = 'Listen';
                 btn.classList.remove('playing', 'paused', 'loading');
-                if (player) player.classList.remove('active');
                 break;
         }
     }
@@ -442,6 +449,9 @@
         const btn = document.getElementById('read-aloud-btn');
         if (!btn) return;
 
+        // Create player UI on page load
+        createTimelineUI();
+        
         btn.addEventListener('click', togglePlayPause);
 
         window.addEventListener('beforeunload', function() {
