@@ -121,6 +121,31 @@
             <p><a href="../index.html">Golnaz.RoughCut</a> · Hosted on GitHub Pages</p>
         </footer>
     </div>
-    <script src="../read-aloud.js"></script>
+    <audio id="blog-audio" src="../mp3/welcometomyblog.mp3" preload="metadata"></audio>
+    <script>
+        (function() {
+            const btn = document.getElementById('read-aloud-btn');
+            const audio = document.getElementById('blog-audio');
+            const icon = btn.querySelector('.read-aloud-icon');
+            const text = btn.querySelector('.read-aloud-text');
+            
+            btn.addEventListener('click', function() {
+                if (audio.paused) {
+                    audio.play();
+                    icon.textContent = '⏸';
+                    text.textContent = 'Pause';
+                } else {
+                    audio.pause();
+                    icon.textContent = '▶';
+                    text.textContent = 'Listen';
+                }
+            });
+            
+            audio.addEventListener('ended', function() {
+                icon.textContent = '▶';
+                text.textContent = 'Listen';
+            });
+        })();
+    </script>
 </body>
 </html>
