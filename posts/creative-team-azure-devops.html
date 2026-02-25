@@ -151,7 +151,109 @@
 
             </div>
         </article>
+
+        <footer>
+            <p class="social-links">
+                <a href="http://twitter.com/golnaz89">X</a> · 
+                <a href="https://www.linkedin.com/in/golnaz89/">LinkedIn</a> · 
+                <a href="../feed.xml">RSS</a>
+            </p>
+            <p><a href="../index.html">Golnaz.RoughCut</a> · Hosted on GitHub Pages</p>
+        </footer>
     </div>
-    <script src="../read-aloud.js"></script>
+    <audio id="blog-audio" src="../mp3/devops.mp3" preload="metadata"></audio>
+    <script>
+        (function() {
+            const btn = document.getElementById('read-aloud-btn');
+            const audio = document.getElementById('blog-audio');
+            const icon = btn.querySelector('.read-aloud-icon');
+            const text = btn.querySelector('.read-aloud-text');
+            
+            // Format time as m:ss
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return mins + ':' + secs.toString().padStart(2, '0');
+            }
+            
+            // Create player UI
+            function createPlayerUI() {
+                // Add label above button
+                const label = document.createElement('div');
+                label.className = 'read-aloud-label';
+                label.textContent = '🎙️ Listen to this blog post';
+                btn.parentNode.insertBefore(label, btn);
+                
+                // Wrap button in player container
+                const player = document.createElement('div');
+                player.className = 'read-aloud-player';
+                btn.parentNode.insertBefore(player, btn);
+                player.appendChild(btn);
+                
+                // Create timeline
+                const timeline = document.createElement('div');
+                timeline.className = 'read-aloud-timeline';
+                timeline.innerHTML = 
+                    '<div class="timeline-time">' +
+                        '<span class="time-current">0:00</span>' +
+                        '<span class="time-separator">/</span>' +
+                        '<span class="time-total">0:00</span>' +
+                    '</div>' +
+                    '<div class="timeline-track">' +
+                        '<div class="timeline-progress"></div>' +
+                    '</div>';
+                player.appendChild(timeline);
+                
+                // Click to seek
+                const track = timeline.querySelector('.timeline-track');
+                track.addEventListener('click', function(e) {
+                    const rect = track.getBoundingClientRect();
+                    const percent = (e.clientX - rect.left) / rect.width;
+                    audio.currentTime = percent * audio.duration;
+                });
+            }
+            
+            // Update timeline
+            function updateTimeline() {
+                const progress = document.querySelector('.timeline-progress');
+                const currentTime = document.querySelector('.time-current');
+                const totalTime = document.querySelector('.time-total');
+                if (!progress) return;
+                
+                const percent = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+                progress.style.width = percent + '%';
+                currentTime.textContent = formatTime(audio.currentTime);
+                if (audio.duration) totalTime.textContent = formatTime(audio.duration);
+            }
+            
+            // Initialize
+            createPlayerUI();
+            
+            // Update total time when metadata loads
+            audio.addEventListener('loadedmetadata', function() {
+                document.querySelector('.time-total').textContent = formatTime(audio.duration);
+            });
+            
+            // Update timeline as audio plays
+            audio.addEventListener('timeupdate', updateTimeline);
+            
+            btn.addEventListener('click', function() {
+                if (audio.paused) {
+                    audio.play();
+                    icon.textContent = '⏸';
+                    text.textContent = 'Pause';
+                } else {
+                    audio.pause();
+                    icon.textContent = '▶';
+                    text.textContent = 'Listen';
+                }
+            });
+            
+            audio.addEventListener('ended', function() {
+                icon.textContent = '▶';
+                text.textContent = 'Listen';
+            });
+        })();
+    </script>
 </body>
 </html>
