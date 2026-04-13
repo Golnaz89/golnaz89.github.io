@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.svg">
+    <title>Copilot CLI vs VS Code - When I Use Each - Golnaz.RoughCut</title>
+    <meta name="description" content="How I split my AI coding workflow between Copilot CLI for quick questions and VS Code GitHub Copilot for project-heavy work, plus MCP servers and skills I've built along the way.">
+    <link rel="canonical" href="https://golnazroughcut.com/posts/copilot-cli-vs-vscode.html">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://golnazroughcut.com/posts/copilot-cli-vs-vscode.html">
+    <meta property="og:title" content="Copilot CLI vs VS Code - When I Use Each">
+    <meta property="og:description" content="How I split my AI coding workflow between Copilot CLI for quick questions and VS Code GitHub Copilot for project-heavy work, plus MCP servers and skills I've built along the way.">
+    <meta property="og:image" content="https://golnazroughcut.com/images/copilot-cli-vscode-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@golnaz89">
+
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-39E8YJ71FR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-39E8YJ71FR');
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <a href="../index.html" class="back-link">Back to all posts</a>
+
+        <article class="post">
+            <header class="post-header">
+                <time datetime="2026-04-13">13 April 2026</time>
+                <h1>Copilot CLI vs VS Code: When I Use Each</h1>
+                <button id="read-aloud-btn" class="read-aloud-btn">
+                    <span class="read-aloud-icon">▶</span>
+                    <span class="read-aloud-text">Listen</span>
+                </button>
+            </header>
+
+            <div class="post-content">
+                <img src="../images/copilotcli.png" alt="GitHub Copilot CLI interface showing loaded MCP servers, plugins, and skills" style="max-width: 100%; margin: 0 0 1.5em 0;">
+
+                <p>I'm a video producer, not a developer. But over the past year, <a href="https://github.com/features/copilot">GitHub Copilot</a> has become one of my most-used tools. Not for writing code in the traditional sense, but for automating tedious tasks, analyzing data, doing research, and building little utilities that save me hours every week.</p>
+
+                <p>If you're in media, marketing, or any creative field and you've dismissed "developer tools" as not for you, I'd encourage you to reconsider. You don't need to know how to code. You just need to know what you want to accomplish. Copilot handles the rest.</p>
+
+                <p>I use GitHub Copilot constantly, but I've landed on a pretty clear split between the CLI and VS Code versions. They're different tools for different jobs, and knowing when to reach for which one has made me way more efficient.</p>
+
+                <h2>VS Code GitHub Copilot: When Context is King</h2>
+
+                <p>This blog you're reading? It's a VS Code project. I've got a posts folder, a drafts subfolder, images, stylesheets. VS Code GitHub Copilot can search across all of it, edit files in place, and keep that context throughout the session. CLI can read files too, but VS Code's integration is deeper.</p>
+
+                <p>When I'm working on something like this, I need VS Code to see the full picture. It knows my template structure. It can reference other posts to match the tone. It understands which drafts exist and which have already been published. It can push changes to GitHub when I'm ready.</p>
+
+                <p>That file and folder awareness is everything for larger projects. When I say "create a new draft post about X," it knows exactly where to put it, what template to use, and how to format the metadata. I'm not explaining my project structure every time I start a conversation.</p>
+
+                <h2>Copilot CLI: Quick Hits and Skill Building</h2>
+
+                <p>Copilot CLI is my scratchpad. When I have a quick question or want to prototype something fast, I'm not opening VS Code for that. I just ask.</p>
+
+                <p>But here's the thing that surprised me: CLI became my incubator for building <a href="https://agentskills.io/home">skills</a>. When I'm iterating on something new, working through problems step by step, the CLI's conversational flow is perfect. I can ask, test, refine, ask again. It's faster than context-switching in a full IDE.</p>
+
+                <p>Two skills I built this way now live in our devrel-studios <a href="https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-cli-plugins">plugin</a>.</p>
+
+                <h3>The Skills I Built</h3>
+
+                <h4>VTT Metadata Generator</h4>
+                <p>This started as me asking the CLI how to parse VTT files. Then how to extract chapter markers from conversational flow. Then how to generate YouTube-optimized titles. Each question built on the last.</p>
+
+                <p>Now it's a full skill that takes raw video transcripts and generates publish-ready YouTube metadata: three title options optimized for clicks and search, a full video description with summary and key topics, and timestamped chapter markers pulled directly from the conversation flow. It even writes the results back to Azure DevOps work items automatically. (If you're curious why a video team uses ADO, <a href="creative-team-azure-devops.html">I wrote about that here</a>.)</p>
+
+                <h4>YouTube Livestream Chat Analyzer</h4>
+                <p>Same story. Started with me asking CLI how to download YouTube chat comments. Then how to run sentiment analysis. Then how to extract geographic data.</p>
+
+                <p>The skill now downloads chat comments from any livestream and delivers sentiment breakdowns (positive, neutral, negative percentages), common themes viewers discussed, and geographic reach showing where people tuned in from around the world. For playlists, it compares across streams, tracking sentiment trends, audience growth, recurring viewers, and how topics evolve episode to episode.</p>
+
+                <p>Both started as CLI conversations.</p>
+
+                <h2>MCP Servers: The Real Power-Up</h2>
+
+                <p>Both VS Code Copilot and Copilot CLI can use MCP servers, and I use three of them religiously.</p>
+
+                <h3>Azure DevOps</h3>
+                <p>Finding work items, querying project data, linking things together. When I need to track down what's in flight or connect my work to tickets, the ADO MCP server handles it without me leaving Copilot. It's open source and easy to set up: <a href="https://github.com/microsoft/azure-devops-mcp">github.com/microsoft/azure-devops-mcp</a>.</p>
+
+                <h3>Playwright</h3>
+                <p>This one surprised me with how useful it's become. I use it to edit PowerPoint decks programmatically. I also use it to scrub through websites when I need to match speakers on internal lists with their public bios, pulling names, titles, and headshots from conference sites or LinkedIn. Grab it here: <a href="https://github.com/microsoft/playwright-mcp">github.com/microsoft/playwright-mcp</a>.</p>
+
+                <h3>Work IQ</h3>
+                <p>Finding links buried in Teams chats is a nightmare. The Work IQ MCP server lets me search through conversations to dig up that one URL someone shared three weeks ago. Game changer for anyone drowning in message threads. Check it out: <a href="https://github.com/microsoft/work-iq">github.com/microsoft/work-iq</a>.</p>
+
+                <h2>The Split</h2>
+
+                <p>Here's my mental model:</p>
+
+                <ul>
+                    <li><strong>VS Code Copilot:</strong> Multi-file projects, anything needing folder context, pushing to GitHub</li>
+                    <li><strong>Copilot CLI:</strong> One-off questions, learning something new, building and testing ideas iteratively, quick scripting</li>
+                </ul>
+
+                <p>If I had to estimate, I spend about 80% of my time in Copilot CLI and 20% in VS Code. The CLI handles most of my day-to-day questions and quick tasks. VS Code comes out when I need that project context or I'm building something that spans multiple files. Knowing which tool to grab for which job has made both of them more useful.</p>
+
+            </div>
+        </article>
+    </div>
+</body>
+</html>
