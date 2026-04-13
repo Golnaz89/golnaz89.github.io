@@ -53,7 +53,7 @@
 
                 <h2>VS Code GitHub Copilot: When Context is King</h2>
 
-                <p>This blog you're reading? It's a VS Code project. I've got a posts folder, a drafts subfolder, images, stylesheets, and a whole structure that Copilot needs to understand to help me effectively.</p>
+                <p>This blog you're reading? It's a VS Code project. I've got a posts folder, a drafts subfolder, images, stylesheets. VS Code GitHub Copilot can search across all of it, edit files in place, and keep that context throughout the session. CLI can read files too, but VS Code's integration is deeper.</p>
 
                 <p>When I'm working on something like this, I need VS Code to see the full picture. It knows my template structure. It can reference other posts to match the tone. It understands which drafts exist and which have already been published. It can push changes to GitHub when I'm ready.</p>
 
@@ -65,19 +65,21 @@
 
                 <p>But here's the thing that surprised me: CLI became my incubator for building <a href="https://agentskills.io/home">skills</a>. When I'm iterating on something new, working through problems step by step, the CLI's conversational flow is perfect. I can ask, test, refine, ask again. It's faster than context-switching in a full IDE.</p>
 
-                <p>Two skills I built this way ended up becoming actual <a href="https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-cli-plugins">plugins</a>.</p>
+                <p>Two skills I built this way now live in our devrel-studios <a href="https://docs.github.com/en/copilot/concepts/agents/copilot-cli/about-cli-plugins">plugin</a>.</p>
 
-                <h3>VTT Metadata Generator</h3>
+                <h3>The Skills I Built</h3>
+
+                <h4>VTT Metadata Generator</h4>
                 <p>This started as me asking the CLI how to parse VTT files. Then how to extract chapter markers from conversational flow. Then how to generate YouTube-optimized titles. Each question built on the last.</p>
 
-                <p>Now it's a full skill that takes raw video transcripts and generates publish-ready YouTube metadata: three title options optimized for clicks and search, a full video description with summary and key topics, and timestamped chapter markers pulled directly from the conversation flow. It even writes the results back to Azure DevOps work items automatically.</p>
+                <p>Now it's a full skill that takes raw video transcripts and generates publish-ready YouTube metadata: three title options optimized for clicks and search, a full video description with summary and key topics, and timestamped chapter markers pulled directly from the conversation flow. It even writes the results back to Azure DevOps work items automatically. (If you're curious why a video team uses ADO, <a href="../creative-team-azure-devops.html">I wrote about that here</a>.)</p>
 
-                <h3>YouTube Livestream Chat Analyzer</h3>
+                <h4>YouTube Livestream Chat Analyzer</h4>
                 <p>Same story. Started with me asking CLI how to download YouTube chat comments. Then how to run sentiment analysis. Then how to extract geographic data.</p>
 
                 <p>The skill now downloads chat comments from any livestream and delivers sentiment breakdowns (positive, neutral, negative percentages), common themes viewers discussed, and geographic reach showing where people tuned in from around the world. For playlists, it compares across streams, tracking sentiment trends, audience growth, recurring viewers, and how topics evolve episode to episode.</p>
 
-                <p>Both skills now live in a proper plugin, bundled with an Azure DevOps MCP server so they work out of the box. But they started as CLI conversations.</p>
+                <p>Both started as CLI conversations.</p>
 
                 <h2>MCP Servers: The Real Power-Up</h2>
 
