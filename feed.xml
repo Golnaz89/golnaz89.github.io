@@ -6,8 +6,16 @@
     <link>https://golnazroughcut.com</link>
     <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 30 Mar 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 13 Apr 2026 00:00:00 GMT</lastBuildDate>
     
+    <item>
+      <title>Copilot CLI vs VS Code: When I Use Each</title>
+      <link>https://golnazroughcut.com/posts/copilot-cli-vs-vscode.html</link>
+      <guid>https://golnazroughcut.com/posts/copilot-cli-vs-vscode.html</guid>
+      <pubDate>Mon, 13 Apr 2026 00:00:00 GMT</pubDate>
+      <description>How I split my AI coding workflow between Copilot CLI for quick questions and GitHub Copilot in VS Code for project-heavy work, plus MCP servers and skills I've built along the way.</description>
+    </item>
+
     <item>
       <title>NDI Tools: The Unsung Hero of Video Production</title>
       <link>https://golnazroughcut.com/posts/ndi-tools-unsung-hero.html</link>

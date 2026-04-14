@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.svg">
     <title>How a Creative Team Learned to Love Azure DevOps - Golnaz.RoughCut</title>
     <meta name="description" content="Using Azure DevOps and Power Automate to manage a video production team. Automation, transparency, and even GPT-powered workback schedules.">
     <meta name="author" content="Golnaz">
@@ -37,6 +39,7 @@
     }
     </script>
     
+    <link rel="alternate" type="application/rss+xml" title="Golnaz.RoughCut RSS Feed" href="https://golnazroughcut.com/feed.xml">
     <link rel="stylesheet" href="../styles.css">
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-39E8YJ71FR"></script>
@@ -118,7 +121,7 @@
 
                 <p>Here's where it gets fun. We use Microsoft Forms to ingest new requests from stakeholders. When a form comes in, we have a Power Automate flow that makes an HTTP POST call to the GPT-5 API.</p>
 
-                <img src="../images/architectureforflow.png" alt="Architecture diagram showing our Power Automate flow with GPT-5 integration" style="max-width: 100%; margin: 1.5em 0;">
+                <img src="../images/architectureforflow.png" alt="Architecture diagram showing our Power Automate flow with GPT-5 integration" style="max-width: 100%; margin: 1.5em 0;" loading="lazy">
 
                 <p>What does GPT do? It acts as a mini producer. Based on the request details, target date, and video type, it generates a workback schedule. Suggested milestones. Realistic timelines based on our historical data.</p>
 

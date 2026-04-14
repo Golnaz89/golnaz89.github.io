@@ -2,8 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://golnazroughcut.com/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-13</lastmod>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://golnazroughcut.com/about.html</loc>
+    <lastmod>2026-01-05</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://golnazroughcut.com/posts/copilot-cli-vs-vscode.html</loc>
+    <lastmod>2026-04-13</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://golnazroughcut.com/posts/kill-your-ego-ship-your-work.html</loc>
+    <lastmod>2026-03-16</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://golnazroughcut.com/posts/ndi-tools-unsung-hero.html</loc>
