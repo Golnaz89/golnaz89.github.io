@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.svg">
+    <title>Livestreaming Before It Was Cool - Golnaz.RoughCut</title>
+    <meta name="description" content="From the Spinnaker to YouTube Live, I've been streaming for over a decade. Here's how it all works, why platforms differ, and why live beats produced video.">
+    <meta name="author" content="Golnaz">
+    <link rel="canonical" href="https://golnazroughcut.com/posts/livestreaming-before-it-was-cool.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Livestreaming Before It Was Cool">
+    <meta property="og:description" content="From the Spinnaker to YouTube Live. How streaming works, platform differences, and why live beats polished video.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://golnazroughcut.com/posts/livestreaming-before-it-was-cool.html">
+    <meta property="og:image" content="https://golnazroughcut.com/images/livestreaming-flow-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@golnaz89">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Livestreaming Before It Was Cool",
+      "author": {
+        "@type": "Person",
+        "name": "Golnaz",
+        "url": "https://twitter.com/golnaz89"
+      },
+      "datePublished": "2026-04-20",
+      "description": "From the Spinnaker to YouTube Live, I've been streaming for over a decade. Here's how it all works and why live beats produced video.",
+      "publisher": {
+        "@type": "Person",
+        "name": "Golnaz"
+      }
+    }
+    </script>
+    
+    <link rel="alternate" type="application/rss+xml" title="Golnaz.RoughCut RSS Feed" href="https://golnazroughcut.com/feed.xml">
+    <link rel="stylesheet" href="../styles.css">
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-39E8YJ71FR"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-39E8YJ71FR');
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <a href="../index.html" class="back-link">Back to all posts</a>
+
+        <article class="post">
+            <header class="post-header">
+                <time datetime="2026-04-20">20 April 2026</time>
+                <h1>Livestreaming Before It Was Cool</h1>
+            </header>
+
+            <div class="post-content">
+                <figure class="post-hero">
+                    <img src="../images/livestreaming-flow.png" alt="How Livestreaming Works: Cameras, Mics, Graphics flow to Switcher (OBS, TriCaster, StreamYard), then to RTMP Stream Key, then to YouTube, Twitch, TikTok">
+                </figure>
+                
+                <p>I've been streaming since before it was cool. Back when "going live" meant hauling hardware like the Spinnaker, a dedicated encoding box that cost more than a car and required a degree in broadcast engineering to troubleshoot. This was before <a href="https://obsproject.com/">OBS</a> existed. Before <a href="https://streamyard.com/">StreamYard</a>. Before your laptop could encode H.264 without catching fire.</p>
+
+                <p>Now everyone has a streaming setup. Your phone is a broadcast studio. Twitch made gaming livestreams a legitimate career. But the fundamentals haven't changed, and understanding them helps explain why different tools exist and why platforms behave differently.</p>
+
+                <h2>How Livestreaming Actually Works</h2>
+
+                <p>Let me break down the technical side, because understanding this helps explain why different tools exist and why platforms behave differently.</p>
+
+                <p>At its core, livestreaming has three components:</p>
+
+                <ol>
+                    <li><strong>Production/Mixing:</strong> Combining your cameras, graphics, screen shares, and audio into a single program output</li>
+                    <li><strong>Encoding:</strong> Compressing that video into a format that can travel over the internet</li>
+                    <li><strong>Delivery:</strong> Sending that encoded stream to a platform that distributes it to viewers</li>
+                </ol>
+
+                <h3>RTMP: The Protocol That Runs Everything</h3>
+
+                <p>Almost every streaming platform uses RTMP (Real-Time Messaging Protocol) to receive your stream. When you set up a livestream on YouTube, TikTok, or anywhere else, you get two things:</p>
+
+                <ul>
+                    <li><strong>Stream URL (RTMP URL):</strong> The address where you're sending your video</li>
+                    <li><strong>Stream Key:</strong> Your unique identifier that tells the platform which stream this belongs to</li>
+                </ul>
+
+                <p>Your encoding software takes your program output, compresses it, and pushes it to that RTMP URL with your stream key. The platform receives it, transcodes it into multiple quality levels, and distributes it to viewers through their CDN.</p>
+
+                <p>Simple in concept. A thousand things that can go wrong in practice.</p>
+
+                <h2>The Tools: Mixing and Delivery</h2>
+
+                <p>Here's where it gets interesting. The tools we use for livestreaming serve dual purposes: they're both production switchers (mixing your sources) AND delivery systems (encoding and sending to platforms).</p>
+
+                <h3>Hardware Switchers: The Professional Tiers</h3>
+
+                <p>Production switchers exist in tiers. At the very top, you have broadcast networks. ESPN, NFL productions, the Super Bowl, the Olympics. These use equipment from <a href="https://www.rossvideo.com/">Ross Video</a>, <a href="https://www.grassvalley.com/">Grass Valley</a> (their K-Frame and Kayenne systems), and Sony. We're talking switchers that cost hundreds of thousands of dollars, with dedicated control surfaces, multiple M/E (mix/effects) banks, and engineering teams to operate them.</p>
+
+                <p>A step down, you have solutions like the <a href="https://www.vizrt.com/products/tricaster">NewTek TriCaster</a> and <a href="https://www.blackmagicdesign.com/products/atem">Blackmagic ATEM</a>. This is where we live. The TriCaster is an all-in-one system: multiple camera inputs, graphics, virtual sets, audio mixing, recording, AND streaming output. All in one box. The ATEM line from Blackmagic offers incredible value, especially the ATEM Mini series which brought broadcast-quality switching to a price point that made everyone do a double-take.</p>
+
+                <p>For our needs, TriCaster and Blackmagic hit the sweet spot. We're not producing Monday Night Football, but we need more than a laptop running OBS can reliably deliver for mission-critical events. The Mini and 2 Elite models can do a lot.</p>
+
+                <h3>Software Switchers: OBS, vMix, Wirecast</h3>
+
+                <p><a href="https://obsproject.com/">OBS</a> (Open Broadcaster Software) democratized livestreaming. Free, open-source, and surprisingly capable. It turned any decent computer into a streaming workstation.</p>
+
+                <p>OBS can pull in multiple sources (cameras, screen captures, browser windows, <a href="ndi-tools-unsung-hero.html">NDI feeds</a>), mix them with scenes and transitions, and push the output to any RTMP destination. It's what most individual creators use, and honestly, it's powerful enough for many professional applications.</p>
+
+                <p><a href="https://www.vmix.com/">vMix</a> and <a href="https://www.telestream.net/wirecast/">Wirecast</a> are the paid alternatives with more features.</p>
+
+                <h3>Cloud-Based: StreamYard, Riverside</h3>
+
+                <p><a href="https://streamyard.com/">StreamYard</a> changed the game for remote guests. Instead of having everyone install software and configure audio, you send them a browser link. They join, their camera shows up in your production, done.</p>
+
+                <p>It handles the mixing in the cloud and delivers directly to platforms. Lower complexity, lower control, but dramatically easier for distributed teams. <a href="https://riverside.fm/">Riverside</a> takes a similar browser-based approach but focuses on high-quality local recording for podcasts and remote interviews. This became essential during COVID when suddenly everyone needed to produce content from home.</p>
+
+                <h2>Platform Wars: Where to Stream</h2>
+
+                <p>Not all platforms are created equal. Each has quirks, limitations, and different audiences.</p>
+
+                <h3>YouTube: The King of VOD</h3>
+
+                <p><a href="https://www.youtube.com/">YouTube</a> won. I'll explain why in a moment, but let me first say: 90% of our viewership comes from YouTube.</p>
+
+                <p>The killer features:</p>
+
+                <ul>
+                    <li><strong>Instant VOD:</strong> When your stream ends, it immediately becomes a searchable video that lives on your channel forever</li>
+                    <li><strong>Search and Discovery:</strong> YouTube's algorithm actually surfaces livestream recordings to new audiences</li>
+                    <li><strong>DVR:</strong> Viewers who join late can rewind and catch up while the stream is still live</li>
+                    <li><strong>Built-in AI Captions:</strong> Auto-generated captions (with about an 8-second delay live)</li>
+                </ul>
+
+                <p>The workflow: Create your stream, grab the Stream URL and Stream Key from the Live Control Room, plug them into your encoder, and go. Auto-stop and DVR should be enabled. Captions through embedded 608/708 if you're using professional captioning.</p>
+
+                <h3>Twitch: What Could Have Been</h3>
+
+                <p>During COVID, we went all-in on <a href="https://www.twitch.tv/">Twitch</a>. It made sense at the time. Twitch was THE live platform. The chat culture was established. The community features were great.</p>
+
+                <p>But here's what killed it for us: discoverability.</p>
+
+                <p>On Twitch, when your stream ends, it becomes a VOD that's hard to find. The search is weak. The algorithm favors currently-live content. Your stream happens, your community watches, and then it disappears into the void.</p>
+
+                <p>YouTube's streams live forever. They get recommended. They show up in search results months later. For educational and technical content, this permanence matters.</p>
+
+                <p>We still respect Twitch for what it does well (gaming, entertainment, real-time community), but for our use case, YouTube became the defacto home.</p>
+
+                <h3>TikTok: The 15-Minute Problem</h3>
+
+                <p><a href="https://www.tiktok.com/">TikTok</a> Live is weird. The platform only generates your stream key 15 minutes before you go live. You cannot plan ahead. You cannot test your connection. You show up, hope the key appears, and scramble to get it into your encoder before your scheduled start time.</p>
+
+                <p>This is chaos for professional productions. Great for spontaneous "going live now!" energy. Terrible for planned events.</p>
+
+                <h3>X (Twitter): Low Latency, Time Limits</h3>
+
+                <p><a href="https://x.com/">X</a> has surprisingly low latency. Your stream reaches viewers faster than most platforms. But there's a catch: if you set a start and end time, the stream WILL end at that time even if your event runs over. Build in buffer time or your broadcast gets cut off mid-sentence.</p>
+
+                <h3>LinkedIn: The 4-Hour Cap</h3>
+
+                <p><a href="https://www.linkedin.com/">LinkedIn</a> Live maxes out at 4 hours. If your event is longer, you need to split it into multiple separate streams. Plan accordingly for all-day conferences.</p>
+
+                <h3>Instagram: The Mobile-First Platform</h3>
+
+                <p><a href="https://www.instagram.com/">Instagram</a> Live is designed for phones. Getting professional production into Instagram requires workarounds. It's great for influencer-style content, rough for broadcast-quality shows.</p>
+
+                <h2>Why Live?</h2>
+
+                <p>With all these complications, why bother with live at all? Why not just record everything and post polished videos?</p>
+
+                <h3>Interactivity Changes Everything</h3>
+
+                <p>Chat. Q&A. Real-time reactions. The energy of knowing people are watching RIGHT NOW.</p>
+
+                <p>When you're live, the conversation is real. Viewers ask questions. You answer them. The content adapts to the audience. This creates a connection that produced video can't replicate.</p>
+
+                <p>The "imperfection" is part of the appeal. Natural conversations get captured. The tangents that would get edited out of a produced video become the best moments of a livestream.</p>
+
+                <h3>Production Efficiency</h3>
+
+                <p>Here's the dirty secret: livestreaming is actually more efficient than produced video.</p>
+
+                <p>When you make a produced video, you can edit. And because you CAN edit, you WILL edit. You'll tweak the pacing. Re-record that section that wasn't quite right. Spend three hours color grading. Obsess over the music choice. The video takes forever because you're trying to make it perfect.</p>
+
+                <p>With a livestream? It's done when it's done. The session ends, YouTube has your VOD, and you move on.</p>
+
+                <p>We can jam-pack a full day of streaming. Four sessions, eight hours of content, all going straight to VOD. That same amount of produced content would take weeks.</p>
+
+                <h2>The Evolution Continues</h2>
+
+                <p>From the Spinnaker to OBS to cloud-based production, streaming has come a long way. The barriers keep dropping. The tools keep improving. Anyone can go live from anywhere.</p>
+
+                <p>But the fundamentals haven't changed: get your signal mixed, get it encoded, get it delivered. Whether you're using a $50,000 TriCaster or a free OBS setup, you're still doing the same three things.</p>
+
+                <p>And the reason to do it live hasn't changed either. Real conversations. Real connection. Real efficiency.</p>
+
+                <p>Some things never change.</p>
+
+            </div>
+        </article>
+    </div>
+</body>
+</html>

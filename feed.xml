@@ -6,8 +6,16 @@
     <link>https://golnazroughcut.com</link>
     <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Apr 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 20 Apr 2026 00:00:00 GMT</lastBuildDate>
     
+    <item>
+      <title>Livestreaming Before It Was Cool</title>
+      <link>https://golnazroughcut.com/posts/livestreaming-before-it-was-cool.html</link>
+      <guid>https://golnazroughcut.com/posts/livestreaming-before-it-was-cool.html</guid>
+      <pubDate>Sun, 20 Apr 2026 00:00:00 GMT</pubDate>
+      <description>From the Spinnaker to YouTube Live. How streaming works, the professional tiers from Ross to OBS, and why live beats polished video.</description>
+    </item>
+
     <item>
       <title>Copilot CLI vs VS Code: When I Use Each</title>
       <link>https://golnazroughcut.com/posts/copilot-cli-vs-vscode.html</link>
