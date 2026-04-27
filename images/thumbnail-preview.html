@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html {
+            background: #1a1a2e;
+        }
+        body {
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .title {
+            color: #ffffff;
+            font-size: 38px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 6px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .subtitle {
+            color: #ffd43b;
+            font-size: 22px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .icons-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 12px;
+        }
+        .icon-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .icon {
+            width: 110px;
+            height: 110px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            line-height: 1.3;
+            border: 3px solid;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.3);
+        }
+        .resolve {
+            background: linear-gradient(135deg, #1c7ed6 0%, #1864ab 100%);
+            border-color: #4dabf7;
+            transform: rotate(-3deg);
+        }
+        .hyperframes {
+            background: linear-gradient(135deg, #e03131 0%, #c92a2a 100%);
+            border-color: #ff6b6b;
+            transform: scale(1.08);
+        }
+        .aftereffects {
+            background: linear-gradient(135deg, #7048e8 0%, #5f3dc4 100%);
+            border-color: #9775fa;
+            transform: rotate(3deg);
+        }
+        .status {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .status-ok { color: #69db7c; }
+        .status-note {
+            color: #ffd43b;
+            font-size: 12px;
+            text-align: center;
+            max-width: 100px;
+        }
+        .footnote {
+            color: #868e96;
+            font-size: 13px;
+            margin-top: 16px;
+        }
+        .arrow {
+            color: #ffd43b;
+            font-size: 22px;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">AI Didn't Kill Video Editing</div>
+    <div class="subtitle">(It Made Some Nice Motion Graphics)</div>
+    
+    <div class="icons-row">
+        <div class="icon-box">
+            <div class="icon resolve">DaVinci<br>Resolve</div>
+            <div class="status status-ok">✓ still here</div>
+        </div>
+        
+        <div class="icon-box">
+            <div class="icon hyperframes">Claude +<br>Hyperframes</div>
+            <div class="status status-note">motion graphics<br>(not editing)</div>
+        </div>
+        
+        <div class="icon-box">
+            <div class="icon aftereffects">Premiere<br>Pro</div>
+            <div class="status status-ok">✓ still here</div>
+        </div>
+    </div>
+    
+    <div class="arrow">↑</div>
+    <div class="footnote">this is what the video actually showed</div>
+</body>
+</html>
