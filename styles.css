@@ -465,6 +465,19 @@ header h1 a:hover {
     display: none;
 }
 
+/* Comments Section */
+.comments {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-color);
+}
+
+.comments h2 {
+    font-size: 1.4em;
+    margin-bottom: 24px;
+    color: var(--primary-color);
+}
+
 /* Footer Styles */
 footer {
     padding-top: 30px;
