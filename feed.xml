@@ -6,8 +6,16 @@
     <link>https://golnazroughcut.com</link>
     <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Apr 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 27 Apr 2026 00:00:00 GMT</lastBuildDate>
     
+    <item>
+      <title>AI Didn't Kill Video Editing (It Made Some Nice Motion Graphics)</title>
+      <link>https://golnazroughcut.com/posts/ai-didnt-kill-video-editing.html</link>
+      <guid>https://golnazroughcut.com/posts/ai-didnt-kill-video-editing.html</guid>
+      <pubDate>Sun, 27 Apr 2026 00:00:00 GMT</pubDate>
+      <description>A video claims Claude destroyed every video editing tool. But what it showed isn't editing—it's motion graphics. Here's why AI still analyzes audio, not video, and what that means for the craft.</description>
+    </item>
+
     <item>
       <title>Livestreaming Before It Was Cool</title>
       <link>https://golnazroughcut.com/posts/livestreaming-before-it-was-cool.html</link>
