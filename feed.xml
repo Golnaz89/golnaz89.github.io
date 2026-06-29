@@ -6,8 +6,16 @@
     <link>https://golnazroughcut.com</link>
     <atom:link href="https://golnazroughcut.com/feed.xml" rel="self" type="application/rss+xml"/>
     <language>en-us</language>
-    <lastBuildDate>Sun, 18 May 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 29 Jun 2026 00:00:00 GMT</lastBuildDate>
     
+    <item>
+      <title>AI Raised the Bar (And Now We're All Tired)</title>
+      <link>https://golnazroughcut.com/posts/ai-raised-the-bar.html</link>
+      <guid>https://golnazroughcut.com/posts/ai-raised-the-bar.html</guid>
+      <pubDate>Sun, 29 Jun 2026 00:00:00 GMT</pubDate>
+      <description>Fifteen years ago, post-event video uploads took two weeks. Now we ship in 24 hours with chapters, thumbnails, and metadata. AI made that possible. AI fatigue is the price.</description>
+    </item>
+
     <item>
       <title>If You Didn't Capture It, Did It Really Happen?</title>
       <link>https://golnazroughcut.com/posts/on-demand-capture-for-events.html</link>
