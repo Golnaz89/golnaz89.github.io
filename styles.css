@@ -128,11 +128,11 @@ header h1 a:hover {
     text-decoration: underline;
 }
 
-/* Post List Styles - Card Grid */
+/* Post List Styles - Thumbnail Grid */
 .posts {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
+    gap: 20px;
     margin-bottom: 50px;
 }
 
@@ -143,10 +143,13 @@ header h1 a:hover {
 }
 
 .post-preview {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 16px;
     background: var(--card-background);
     border: 1px solid var(--border-color);
     border-radius: 12px;
-    padding: 24px;
+    padding: 16px;
     transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -155,20 +158,35 @@ header h1 a:hover {
     box-shadow: 0 4px 12px rgba(58, 50, 50, 0.1);
 }
 
+.post-thumbnail {
+    width: 140px;
+    height: 74px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #d4c4b0 0%, #a89080 100%);
+}
+
+.post-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+}
+
 .post-preview time {
     display: block;
     color: var(--secondary-color);
-    font-size: 0.85em;
-    margin-bottom: 8px;
+    font-size: 0.75em;
+    margin-bottom: 4px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .post-preview h2 {
-    margin: 0 0 12px 0;
-    font-size: 1.25em;
+    margin: 0 0 6px 0;
+    font-size: 1em;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1.35;
 }
 
 .post-preview h2 a {
@@ -187,9 +205,7 @@ header h1 a:hover {
 
 /* Post Link (clickable card) */
 .post-link {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+    display: contents;
     text-decoration: none;
     color: inherit;
 }
@@ -199,7 +215,14 @@ header h1 a:hover {
 }
 
 .post-excerpt {
-    color: var(--secondary-color);
+    display: none;
+}
+
+.read-more {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: var(--accent-color);
+}
     margin: 0 0 auto 0;
     line-height: 1.6;
     font-size: 0.95em;
