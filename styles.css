@@ -1,13 +1,14 @@
 /* Golnaz.RoughCut - Blog Styles */
-/* Inspired by minimal GitHub Pages themes */
+/* Rust/Terracotta Theme */
 
 :root {
-    --primary-color: #333;
-    --secondary-color: #666;
-    --accent-color: #4078c0;
-    --background-color: #fff;
-    --border-color: #e5e5e5;
-    --code-bg: #f4f4f4;
+    --primary-color: #3a3232;
+    --secondary-color: #6a5a5a;
+    --accent-color: #b35a3a;
+    --background-color: #faf7f4;
+    --card-background: #fffdfb;
+    --border-color: #e8e0d8;
+    --code-bg: #f5f0eb;
 }
 
 * {
@@ -15,13 +16,20 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.7;
     color: var(--primary-color);
     background-color: var(--background-color);
     margin: 0;
     padding: 0;
+}
+
+/* Headings use Lora serif */
+h1, h2, h3, h4, h5, h6,
+.post-preview h2,
+header h1 {
+    font-family: 'Lora', Georgia, serif;
 }
 
 .wrapper {
@@ -135,7 +143,7 @@ header h1 a:hover {
 }
 
 .post-preview {
-    background: var(--background-color);
+    background: var(--card-background);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     padding: 24px;
@@ -144,7 +152,7 @@ header h1 a:hover {
 
 .post-preview:hover {
     border-color: var(--accent-color);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 12px rgba(58, 50, 50, 0.1);
 }
 
 .post-preview time {
